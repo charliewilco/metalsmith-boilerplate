@@ -19,9 +19,8 @@ const join          = require('path').join;
 const config        = require('./config');
 const paths         = require('./paths');
 
-var configData;
-
 module.exports = function (production) {
+  var configData;
 
   if (production) {
     configData = config.production;
@@ -29,6 +28,7 @@ module.exports = function (production) {
     configData = config.development;
   }
 
+  console.log(configData);
   return Metalsmith(__dirname)
     .clean(false)
     .source('./content')

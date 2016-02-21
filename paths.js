@@ -7,7 +7,12 @@ const paths = {
   },
   js: {
     src: './assets/scripts/global.js',
+    all: './assets/scripts/**/*.js',
     dest: './dist/assets/scripts/'
+  },
+  img: {
+    src: './assets/images/**/*',
+    dest: './dist/assets/images/'
   }
 };
 

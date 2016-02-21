@@ -9,7 +9,7 @@ const config = {
   development: {
     base_url: process.env.DEV_BASE_URL || '',
     site: {
-      url: process.env.DEV_SITE_URL || 'http://localhost:8000',
+      url: process.env.DEV_SITE_URL || 'http://localhost:3000',
       title: 'Hephaestus',
     }
   }
