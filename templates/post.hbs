@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  {{> head }}
+  <body>
+    {{> header }}
+    {{> nav }}
+    <main>
+      <article class="">
+        <h1>{{ title }}</h1>
+        <time>{{ date }}</time>
+        <section>
+          {{{ content }}}
+        </section>
+      </article>
+    </main>
+    {{> footer }}
+  </body>
+</html>

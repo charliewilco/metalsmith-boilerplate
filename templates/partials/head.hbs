@@ -1,0 +1,9 @@
+<head>
+  <meta charset="utf-8">
+  {{#if documentTitle}}
+    <title>{{ documentTitle }} | {{ site.title }}</title>
+  {{ else }}
+    <title>{{ site.title }}</title>
+  {{/if}}
+  <link rel="stylesheet" href="{{ site.url }}assets/stylesheets/main.css">
+</head>

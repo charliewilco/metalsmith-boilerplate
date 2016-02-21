@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  {{> head }}
+  <body>
+    {{> header }}
+    {{> nav }}
+    <main>
+      <ul>
+        {{#each collections.posts}}
+        <li class="">
+          <h1>{{ title }}</h1>
+          <time>{{ date }}</time>
+          {{ excerpt }}
+        </li>
+        {{/each}}
+      </ul>
+    </main>
+    {{> footer }}
+  </body>
+</html>
