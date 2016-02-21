@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-  {{> head }}
-  <body>
-    {{> header }}
-    {{> nav }}
-    <main>
-      <article class="">
-        <h1>{{ name }} {{ priority }}</h1>
-        {{{ contents }}}
-      </article>
-    </main>
-    {{> footer }}
-  </body>
-</html>
+<article class="">
+  <h1>{{ this.name }} {{ this.priority }}</h1>
+  {{{ this.contents }}}
+</article>

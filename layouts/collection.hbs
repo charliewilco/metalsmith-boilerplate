@@ -1,22 +1,11 @@
-<!DOCTYPE html>
-<html>
-  {{> head }}
-  <body>
-    {{> header }}
-    {{> nav }}
-    <main>
-      <ul>
-        {{#each collections.posts}}
-        <li class="">
-          <a href="{{ base_url }}/{{ path }}">
-            <h1>{{ title }}</h1>
-            <time>{{ date }}</time>
-            {{ excerpt }}
-          </a>
-        </li>
-        {{/each}}
-      </ul>
-    </main>
-    {{> footer }}
-  </body>
-</html>
+<ul>
+  {{#each collections.posts as |post|}}
+  <li class="">
+    <a href="{{ base_url }}/{{ path }}">
+      <h1>{{ post.title }}</h1>
+      <time>{{ post.date }}</time>
+      {{ post.excerpt }}
+    </a>
+  </li>
+  {{/each}}
+</ul>
