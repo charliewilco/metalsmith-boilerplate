@@ -43,7 +43,7 @@ const sizeConfig = {
 /////////////////////
 
 // Build Site through Metalsmith with presets
-gulp.task('metalsmith', metalsmith(false));
+gulp.task('metalsmith', metalsmith());
 gulp.task('metalsmith:prod', metalsmith(true));
 
 // Linting Tasks
