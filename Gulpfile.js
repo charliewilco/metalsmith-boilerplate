@@ -18,6 +18,7 @@ const del        = require('del');
 const bs         = require('browser-sync').create();
 const metalsmith = require('./Metalsmith');
 const paths      = require('./paths');
+const config     = require('./config');
 const lintconfig = require('./stylelint.config');
 
 // Configuration
@@ -42,8 +43,8 @@ const sizeConfig = {
 /////////////////////
 
 // Build Site through Metalsmith with presets
-gulp.task('metalsmith', ['clean'], metalsmith());
-gulp.task('metalsmith:prod', ['clean'], metalsmith(true));
+gulp.task('metalsmith', metalsmith(false));
+gulp.task('metalsmith:prod', metalsmith(true));
 
 // Linting Tasks
 /////////////////////
@@ -112,7 +113,10 @@ gulp.task('clean', () => {
 
 // Watch files for changes
 gulp.task('watch', ()=> {
-
+  gulp.watch([paths.css.all], ['styles']);
+  gulp.watch([paths.img.src], ['images']);
+  gulp.watch([paths.js.all], ['scripts']);
+  gulp.watch(['./content/**/*.md', './templates/**/*.hbs'], ['metalsmith'], bs.reload());
 });
 
 // Starts Browser Sync Server
@@ -127,6 +131,6 @@ gulp.task('connect', () => {
 // Default Tasks
 /////////////////////
 
-gulp.task('assets', ['styles', 'images', 'scripts', 'icons']);
+gulp.task('assets', ['styles', 'images', 'scripts']);
 gulp.task('build', ['metalsmith', 'assets']);
-gulp.task('default', ['build', 'watch', 'connect']);
+gulp.task('default', ['build', 'connect', 'watch']);
