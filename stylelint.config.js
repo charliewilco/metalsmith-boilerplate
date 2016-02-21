@@ -21,7 +21,7 @@ var config = {
     'function-comma-space-before': 'never',
     'function-comma-space-after': 'always',
     'function-url-quotes': 'single',
-    'indentation': [2, 2, { hierarchicalSelectors: true }],
+    'indentation': [2, { hierarchicalSelectors: true }],
     'media-feature-colon-space-after': 'always',
     'media-feature-colon-space-before': 'never',
     'no-missing-eof-newline': true,
