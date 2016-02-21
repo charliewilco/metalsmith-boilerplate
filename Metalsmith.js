@@ -96,8 +96,7 @@ module.exports = function (production) {
     .destination(paths.build)
     .build(function (err, files) {
       if (err) {
-        console.log(err);
-        console.log(files);
+        console.log(err + ' ' + files);
       }
     });
 };
