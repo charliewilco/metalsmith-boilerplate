@@ -43,20 +43,20 @@ const sizeConfig = {
 /////////////////////
 
 // Build Site through Metalsmith with presets
-gulp.task('metalsmith', metalsmith());
-gulp.task('metalsmith:prod', metalsmith(true));
+gulp.task('metalsmith', metalsmith(false));
+gulp.task('metalsmith:prod', metalsmith());
 
 // Linting Tasks
 /////////////////////
 
 // Lint JavaScript with JSCS
-gulp.task('lint:js', ()=> {
+gulp.task('lint:js', () => {
   return gulp.src(paths.js.src)
     .pipe(jscs());
 });
 
 // Lint CSS with Stylelint
-gulp.task('lint:css', ()=> {
+gulp.task('lint:css', () => {
   return gulp.src([paths.css.src, paths.css.all])
     .pipe(postcss(cssLinters));
 });
@@ -65,7 +65,7 @@ gulp.task('lint:css', ()=> {
 /////////////////////
 
 // CSS Compilation with PostCSS
-gulp.task('styles', ['lint:css'], ()=> {
+gulp.task('styles', ['lint:css'], () => {
   return gulp.src(paths.css.src)
     .pipe(postcss(processors))
     .pipe(rename('main.css'))
@@ -92,7 +92,7 @@ bundler.on('update', bundle);
 gulp.task('scripts', ['lint:js'], bundle);
 
 // Optimize Images
-gulp.task('images', ()=> {
+gulp.task('images', () => {
   return gulp.src(paths.img.src)
     .pipe(imagemin({
       progressive: true,
@@ -112,20 +112,22 @@ gulp.task('clean', () => {
 });
 
 // Watch files for changes
-gulp.task('watch', ()=> {
+gulp.task('watch', () => {
   gulp.watch([paths.css.all], ['styles']);
   gulp.watch([paths.img.src], ['images']);
   gulp.watch([paths.js.all], ['scripts']);
-  gulp.watch(['./content/**/*.md', './templates/**/*.hbs'], ['metalsmith'], bs.reload());
+  gulp.watch(['./content/**/*.md', './layouts/**/*.hbs'], ['metalsmith'], bs.stream());
 });
 
 // Starts Browser Sync Server
 gulp.task('connect', () => {
-  bs.init({
-    server: {
-      baseDir: paths.build
-    }
-  });
+  setTimeout(()=> {
+    bs.init({
+      server: {
+        baseDir: paths.build
+      }
+    });
+  }, 1000);
 });
 
 // Default Tasks
