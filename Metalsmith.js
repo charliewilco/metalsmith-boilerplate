@@ -6,18 +6,22 @@ const writemetadata = require('metalsmith-writemetadata');
 const collections   = require('metalsmith-collections');
 const markdown      = require('metalsmith-markdown');
 const layout        = require('metalsmith-layouts');
-const inPlace       = require('metalsmith-in-place');
-const templates     = require('metalsmith-templates');
 const ignore        = require('metalsmith-ignore');
 const permalinks    = require('metalsmith-permalinks');
 const drafts        = require('metalsmith-drafts');
 const pagination    = require('metalsmith-pagination');
-const metallic      = require('metalsmith-metallic');
-const htmlMinifier  = require('metalsmith-html-minifier');
 const sitemap       = require('metalsmith-sitemap');
 const join          = require('path').join;
 const config        = require('./config');
 const paths         = require('./paths');
+
+// Collects Partial Registration for Handlebars
+const partialConfig = {
+  header: 'partials/header',
+  head: 'partials/head',
+  nav: 'partials/nav',
+  footer: 'partials/footer'
+};
 
 module.exports = function (production) {
   var configData;
@@ -28,24 +32,18 @@ module.exports = function (production) {
     configData = config.development;
   }
 
-  console.log(configData);
   return Metalsmith(__dirname)
     .clean(false)
     .source('./content')
     .metadata(configData)
     .use(drafts())
     .use(ignore('drafts/**/*'))
-    .use(templates({
+    .use(markdown())
+    .use(layout({
       engine: 'handlebars',
+      partials: partialConfig,
       default: 'index.hbs',
-      partials: {
-        header: 'partials/header',
-        head: 'partials/head',
-        nav: 'partials/nav',
-        footer: 'partials/footer'
-      },
-      pattern: '**/*.md',
-      rename: true
+      rename: true,
     }))
     .use(collections({
       posts: {
@@ -58,8 +56,6 @@ module.exports = function (production) {
         sortBy: 'priority'
       }
     }))
-    .use(metallic())
-    .use(markdown())
     .use(permalinks({
       pattern: 'blog/:title',
       relative: false
@@ -72,12 +68,12 @@ module.exports = function (production) {
     .use(pagination({
       'collections.posts': {
         perPage: 100,
-        template: 'collection.hbs',
+        layout: 'collection.hbs',
         first: 'blog/index.html',
         path: 'blog/:num/index.html'
       }
     }))
-    .use(templates('handlebars'))
+    .use(layout('handlebars'))
     .use(writemetadata({
       bufferencoding: 'utf8',
       collections: {
@@ -101,6 +97,7 @@ module.exports = function (production) {
     .build(function (err, files) {
       if (err) {
         console.log(err);
+        console.log(files);
       }
     });
 };

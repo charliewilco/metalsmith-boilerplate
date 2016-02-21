@@ -8,9 +8,11 @@
       <ul>
         {{#each collections.posts}}
         <li class="">
-          <h1>{{ title }}</h1>
-          <time>{{ date }}</time>
-          {{ excerpt }}
+          <a href="{{ base_url }}/{{ path }}">
+            <h1>{{ title }}</h1>
+            <time>{{ date }}</time>
+            {{ excerpt }}
+          </a>
         </li>
         {{/each}}
       </ul>
