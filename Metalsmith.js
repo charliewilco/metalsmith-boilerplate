@@ -8,10 +8,8 @@ const markdown      = require('metalsmith-markdown');
 const layout        = require('metalsmith-layouts');
 const ignore        = require('metalsmith-ignore');
 const permalinks    = require('metalsmith-permalinks');
-const drafts        = require('metalsmith-drafts');
 const pagination    = require('metalsmith-pagination');
 const sitemap       = require('metalsmith-sitemap');
-const join          = require('path').join;
 const config        = require('./config');
 const paths         = require('./paths');
 
@@ -36,15 +34,9 @@ module.exports = function (production) {
     .clean(false)
     .source('./content')
     .metadata(configData)
-    .use(drafts())
     .use(ignore('drafts/**/*'))
     .use(markdown())
-    .use(layout({
-      engine: 'handlebars',
-      partials: partialConfig,
-      default: 'index.hbs',
-      rename: true,
-    }))
+
     .use(collections({
       posts: {
         pattern: 'posts/*.md',
@@ -73,7 +65,12 @@ module.exports = function (production) {
         path: 'blog/:num/index.html'
       }
     }))
-    .use(layout('handlebars'))
+    .use(layout({
+      engine: 'handlebars',
+      partials: partialConfig,
+      default: 'index.hbs',
+      rename: true,
+    }))
     .use(writemetadata({
       bufferencoding: 'utf8',
       collections: {
