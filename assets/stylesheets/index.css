@@ -4,31 +4,49 @@
   --base-size: 1rem;
 }
 
-* {
+*,
+*:before,
+*:after {
   margin: 0;
   padding: 0;
+  box-sizing: inherit;
 }
-
-*, *:before, *:after { box-sizing: inherit; }
 
 html {
   box-sizing: border-box;
-  font: 300 100%/1.6 'Avenir', 'Avenir Next', sans-serif;
+  font: 400 100%/1.6 'Avenir', 'Avenir Next', sans-serif;
 }
 
-header, nav, main, footer {
-  margin: 2rem auto;
+header,
+nav,
+main,
+footer {
+  margin: 0 auto 3rem;
   padding: 0 1rem;
   max-width: 48rem;
 }
 
-nav > ul { list-style: none inside; }
-nav > ul > li {
+.navList { list-style: none inside; }
+
+.navItem {
   display: inline-block;
   margin: 0 var(--base-size) var(--base-size) 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
 footer { text-align: center; }
 
-h1, h2, h3, h4, h5, h6 { color: var(--blue); }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--blue);
+}
+
+p { font: 300 1.125rem/1.7 -apple-system, BlinkMacSystemFont, Athelas, Charter, Georgia, serif; }
+
 a { color: var(--reddish); }
