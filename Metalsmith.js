@@ -39,12 +39,12 @@ module.exports = function (production) {
 
     .use(collections({
       posts: {
-        pattern: 'posts/*.md',
+        pattern: 'posts/*.html',
         sortBy: 'date',
         reverse: true
       },
       pages: {
-        pattern: '*.md',
+        pattern: '*.html',
         sortBy: 'priority'
       }
     }))
