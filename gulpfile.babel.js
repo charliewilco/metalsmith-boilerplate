@@ -19,19 +19,8 @@ const bs         = require('browser-sync').create();
 const metalsmith = require('./Metalsmith');
 const paths      = require('./paths');
 const config     = require('./config');
-const lintconfig = require('./stylelint.config');
 
 // Configuration
-const processors = [
-  cssnext,
-  atImport
-];
-
-const cssLinters = [
-  stylelint({ rules: lintconfig.rules }),
-  bemLinter('bem'),
-  reporter({ clearMessages: true }),
-];
 
 const sizeConfig = {
   gzip: true,
@@ -57,8 +46,14 @@ gulp.task('lint:js', () => {
 
 // Lint CSS with Stylelint
 gulp.task('lint:css', () => {
+  const linters = [
+    stylelint(),
+    bemLinter('bem'),
+    reporter({ clearMessages: true }),
+  ];
+
   return gulp.src([paths.css.src, paths.css.all])
-    .pipe(postcss(cssLinters));
+    .pipe(postcss(linters));
 });
 
 // Asset Tasks
@@ -66,6 +61,11 @@ gulp.task('lint:css', () => {
 
 // CSS Compilation with PostCSS
 gulp.task('styles', ['lint:css'], () => {
+  const processors = [
+    cssnext,
+    atImport
+  ];
+
   return gulp.src(paths.css.src)
     .pipe(postcss(processors))
     .pipe(rename('main.css'))
