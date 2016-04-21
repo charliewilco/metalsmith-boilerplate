@@ -3,5 +3,6 @@
     "esnext": true,
     "requireTrailingComma": false,
     "disallowSpacesInsideArrayBrackets": false,
-    "requireCamelCaseOrUpperCaseIdentifiers": false
+    "requireCamelCaseOrUpperCaseIdentifiers": false,
+    "requireShorthandArrowFunctions": false
 }
