@@ -32,7 +32,13 @@ const sizeConfig = {
 /////////////////////
 
 // Build Site through Metalsmith with presets
-gulp.task('metalsmith', metalsmith(false));
+gulp.task('metalsmith', function () {
+  metalsmith(false);
+  setTimeout(()=> {
+    bs.reload();
+  }, 1000);
+});
+
 gulp.task('metalsmith:prod', metalsmith());
 
 // Linting Tasks
@@ -62,8 +68,8 @@ gulp.task('lint:css', () => {
 // CSS Compilation with PostCSS
 gulp.task('styles', ['lint:css'], () => {
   const processors = [
-    cssnext,
-    atImport
+    atImport,
+    cssnext
   ];
 
   return gulp.src(paths.css.src)
@@ -116,7 +122,7 @@ gulp.task('watch', () => {
   gulp.watch([paths.css.all], ['styles']);
   gulp.watch([paths.img.src], ['images']);
   gulp.watch([paths.js.all], ['scripts']);
-  gulp.watch(['./content/**/*.md', './layouts/**/*.hbs'], ['metalsmith'], bs.stream());
+  gulp.watch(['./content/**/*.md', './layouts/**/*.hbs'], ['metalsmith']);
 });
 
 // Starts Browser Sync Server
