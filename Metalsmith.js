@@ -12,14 +12,19 @@ const pagination    = require('metalsmith-pagination');
 const sitemap       = require('metalsmith-sitemap');
 const config        = require('./config');
 const paths         = require('./paths');
+const handlebars    = require('handlebars');
+const hbsLayouts    = require('handlebars-layouts');
 
 // Collects Partial Registration for Handlebars
 const partialConfig = {
   header: 'partials/header',
   head: 'partials/head',
   nav: 'partials/nav',
-  footer: 'partials/footer'
+  footer: 'partials/footer',
+  default: 'default'
 };
+
+handlebars.registerHelper(hbsLayouts(handlebars));
 
 module.exports = function (production) {
   var configData;
@@ -33,44 +38,42 @@ module.exports = function (production) {
   return Metalsmith(__dirname)
     .clean(false)
     .source('./content')
-    .metadata(configData)
     .use(ignore('drafts/**/*'))
-    .use(markdown())
-
+    .metadata(configData)
+    .use(layout({
+      engine: 'handlebars',
+      partials: partialConfig,
+      rename: true,
+    }))
     .use(collections({
       posts: {
-        pattern: 'posts/*.html',
+        pattern: 'posts/*.md',
+        sortBy: 'date',
+        reverse: true
+      },
+      work: {
+        pattern: 'work/*.md',
         sortBy: 'date',
         reverse: true
       },
       pages: {
-        pattern: '*.html',
-        sortBy: 'priority'
+        pattern: '*.md',
       }
     }))
-    .use(permalinks({
-      pattern: 'blog/:title',
-      relative: false
-    }))
-    .use(feed({ collection: 'posts' }))
     .use(excerpts({
       pruneLength: 160,
       pruneString: ''
     }))
-    .use(pagination({
-      'collections.posts': {
-        perPage: 100,
-        layout: 'collection.hbs',
-        first: 'blog/index.html',
-        path: 'blog/:num/index.html'
-      }
+    .use(permalinks({
+      pattern: ':title',
+      relative: false,
+      linksets: [{
+        match: { collection: 'posts' },
+        pattern: 'blog/:title',
+        date: 'mmddyy'
+      }]
     }))
-    .use(layout({
-      engine: 'handlebars',
-      partials: partialConfig,
-      default: 'index.hbs',
-      rename: true,
-    }))
+    .use(markdown())
     .use(writemetadata({
       bufferencoding: 'utf8',
       collections: {
@@ -92,8 +95,9 @@ module.exports = function (production) {
     }))
     .destination(paths.build)
     .build(function (err, files) {
+      const f = files;
       if (err) {
-        console.log(err + ' ' + files);
+        console.log(err);
       }
     });
 };
