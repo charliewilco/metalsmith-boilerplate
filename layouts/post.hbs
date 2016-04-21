@@ -1,9 +1,13 @@
-<article class="">
-  <header>
-    <h1>{{ this.title }}</h1>
-    <time>{{ this.date }}</time>
-  </header>
-  <section>
-    {{{ this.contents }}}
-  </section>
-</article>
+{{#extend 'default'}}
+  {{#content 'main'}}
+    <article class="">
+      <header>
+        <h1>{{ this.title }}</h1>
+        <time>{{ this.date }}</time>
+      </header>
+      <section>
+        {{{ this.contents }}}
+      </section>
+    </article>
+  {{/content}}
+{{/extend}}

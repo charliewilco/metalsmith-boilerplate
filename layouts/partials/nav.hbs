@@ -1,7 +1,9 @@
-<nav>
-  <ul class="navList">
-    <li class="navItem">Navigation Item</li>
-    <li class="navItem">Navigation Item</li>
-    <li class="navItem">Navigation Item</li>
+<nav class="u-p3">
+  <ul class="list--reset">
+    {{#each collections.pages as |p|}}
+      <li class="u-inbl u-mr2">
+        <a href="{{ base_url }}/{{ p.path }}">{{ p.title }} {{path}}</a>
+      </li>
+    {{/each}}
   </ul>
 </nav>

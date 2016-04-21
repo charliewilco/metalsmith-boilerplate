@@ -1,11 +1,15 @@
-<ul>
-  {{#each collections.posts as |post|}}
-  <li class="">
-    <a href="{{ base_url }}/{{ path }}">
-      <h1>{{ post.title }}</h1>
-      <time>{{ post.date }}</time>
-      {{ post.excerpt }}
-    </a>
-  </li>
-  {{/each}}
-</ul>
+{{#extend 'default'}}
+  {{#content 'main'}}
+    <ul>
+      {{#each collections.posts as |post|}}
+      <li class="">
+        <a href="{{ base_url }}/{{ path }}">
+          <h1>{{ post.title }}</h1>
+          <time>{{ post.date }}</time>
+          {{ post.excerpt }}
+        </a>
+      </li>
+      {{/each}}
+    </ul>
+  {{/content}}
+{{/extend}}

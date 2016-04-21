@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html class="u-anti">
   {{> head }}
   <body>
     {{> header }}
     {{> nav }}
     <main>
-      {{{ contents }}}
+      {{#block 'main'}}{{/block}}
     </main>
     {{> footer }}
   </body>
