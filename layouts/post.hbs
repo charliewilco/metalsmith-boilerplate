@@ -1,12 +1,12 @@
 {{#extend 'default'}}
   {{#content 'main'}}
-    <article class="">
-      <header>
-        <h1>{{ this.title }}</h1>
-        <time>{{ this.date }}</time>
+    <article class="o-container--md u-mx-auto u-p3">
+      <header class='u-center u-mb4'>
+        <h1>{{ title }}</h1>
+        <time datetime="{{date}}">{{moment date "MMMM Do YYYY"}}</time>
       </header>
       <section>
-        {{{ this.contents }}}
+        {{{ contents }}}
       </section>
     </article>
   {{/content}}

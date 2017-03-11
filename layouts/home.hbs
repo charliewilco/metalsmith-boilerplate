@@ -1,18 +1,9 @@
 {{#extend 'default'}}
   {{#content 'main'}}
-    <ul class="u-p3 list--reset">
-      {{#each collections.posts as |post|}}
-        <li class="">
-          <a href="{{ base_url }}/{{ path }}">
-            <h5 class="u-w400">{{ post.title }}</h5>
-            <time>{{ post.date }}</time>
-          </a>
-        </li>
-      {{/each}}
-    </ul>
     <article class="o-container--md u-mx-auto u-px3">
       <h1>{{ this.title }}</h1>
       {{{ this.contents }}}
     </article>
+    {{> list-posts }}
   {{/content}}
 {{/extend}}
