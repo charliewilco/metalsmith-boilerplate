@@ -1,0 +1,58 @@
+{
+  "source": "./content",
+  "destination": "./dist",
+  "metadata": {
+    "site": "Hephaestus",
+    "subtitle": "A Metalsmith Boilerplate from the gods."
+  },
+  "clean": true,
+  "plugins": {
+    "metalsmith-collections": {
+      "posts": {
+        "pattern": "posts/*.md",
+        "sortBy": "date",
+        "reverse": true
+      },
+      "growth": {
+        "pattern": "growth/*.md",
+        "sortBy": "order",
+        "reverse": true
+      },
+      "pages": {
+        "pattern": "*.md",
+        "sortBy": "order"
+      }
+    },
+    "metalsmith-markdown": {
+      "langPrefix": "language-"
+    },
+    "metalsmith-prism": {
+      "decode": true
+    },
+    "metalsmith-permalinks": {
+      "pattern": ":title",
+      "relative": false,
+      "linksets": [{
+        "match": { "collection": "posts" },
+        "pattern": "blog/:title",
+        "date": "mmddyy"
+      }]
+    },
+    "metalsmith-register-helpers": {
+      "directory": "layouts/helpers"
+    },
+    "metalsmith-layouts": {
+      "engine": "handlebars",
+      "partials": "layouts/partials",
+      "rename": true
+    },
+    "metalsmith-imagemin": {
+      "optimizationLevel": 3,
+      "svgoPlugins": [{
+        "removeViewBox": false
+      }]
+    },
+    "metalsmith-html-minifier": {},
+    "metalsmith-assets": true
+  }
+}
