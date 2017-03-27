@@ -1,6 +1,7 @@
 @import 'obsidian.css';
 
 :root {
-  --headlines: 'Helvetica Neue', 'Helvetica Neue', var(--default);
-  --body-text: var(--default);
+  --headlines: 'Avenir', var(--default);
+  --body-text: 'Avenir', var(--default);
+  --default: 'Avenir';
 }
